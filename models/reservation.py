@@ -1,6 +1,6 @@
 from sqlmodel import SQLModel, Field, Relationship
 from datetime import datetime
-from .table import Table 
+
 from typing import Optional
 
 class Reservation(SQLModel, table=True):
