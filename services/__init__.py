@@ -1,3 +1,3 @@
-from .table import TableService
+from .table import TableService, DeleteTable
 
-__all__ = ['TableService']
+__all__ = ['TableService', 'DeleteTable']
