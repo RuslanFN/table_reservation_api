@@ -1,4 +1,4 @@
-from sqlmodel import SQLModel
+from sqlmodel import SQLModel, Field
 
 class CreateTable(SQLModel):
     name: str = Field(max_length=15)

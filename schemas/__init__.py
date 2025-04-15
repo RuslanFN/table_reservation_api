@@ -1,3 +1,3 @@
-from .table import CreateTable
+from .table import CreateTable, DeleteTable
 
-__all__ = ['CreateTable']
+__all__ = ['CreateTable', 'DeleteTable']

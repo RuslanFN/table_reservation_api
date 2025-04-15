@@ -1,15 +1,15 @@
 from models import Table   
 from sqlmodel import Session, select
 from schemas import CreateTable, DeleteTable
-from typing import Tuple
+from typing import List
 
 class TableService:
     
     def __init__(self, session: Session):
         self.session = session
     
-    def get_all_tables(self) -> Tuple[Table]:
-        return self.session.exec(select(Table))
+    def get_all_tables(self) -> List[Table]:
+        return self.session.exec(select(Table)).all()
     
     def create_table(self, data_table: CreateTable) -> Table:
         table = Table(
@@ -21,14 +21,13 @@ class TableService:
         self.session.refresh(table)
         return table
 
-    def delete_table(self, table_data: DeleteTable):
-        id = table_data.id
-        table = self.session.query(Table).filter(Table.id==id).first()
+    def delete_table(self, id: int):
+        table = self.session.exec(select(Table).where(Table.id==id)).first()
         if table:
             self.session.delete(table)
             self.session.commit()
             return {'message': f'Стол с id {id} был удалён'}
-        raise ValueError(message=f'Стол с id {id} не существует')
+        raise ValueError(f'Стол с id {id} не существует')
 
     
 
