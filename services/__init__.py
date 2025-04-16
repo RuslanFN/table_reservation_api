@@ -1,3 +1,3 @@
-from .table import TableService, DeleteTable
-
-__all__ = ['TableService', 'DeleteTable']
+from .table import TableService
+from .reservation import ReservationService
+__all__ = ['TableService', 'ReservationService']

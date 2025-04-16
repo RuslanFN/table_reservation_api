@@ -27,7 +27,7 @@ class TableService:
             self.session.delete(table)
             self.session.commit()
             return {'message': f'Стол с id {id} был удалён'}
-        raise ValueError(f'Стол с id {id} не существует')
+        raise LookupError(f'Стол с id {id} не существует')
 
     
 
