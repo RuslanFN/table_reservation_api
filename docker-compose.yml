@@ -16,8 +16,7 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
-
-  app:
+  migrations:
     build: .
     depends_on:
       postgres:
@@ -29,9 +28,24 @@ services:
       DB_HOST: postgres
       DB_PORT: ${DB_PORT:-5432}
       DB_DRIVER: ${DB_DRIVER:-postgresql+psycopg2}
+    command: sh -c "alembic upgrade head"
+  app:
+    build: .
+    depends_on:
+      postgres:
+        condition: service_healthy
+      migrations:
+        condition: service_completed_successfully
+    environment:
+      DB_NAME: ${DB_NAME:-appdb}
+      DB_USER: ${DB_USER:-postgres}
+      DB_PASSWORD: ${DB_PASSWORD:-postgres}
+      DB_HOST: postgres
+      DB_PORT: ${DB_PORT:-5432}
+      DB_DRIVER: ${DB_DRIVER:-postgresql+psycopg2}
     ports:
       - 8000:8000
     command: > 
-      sh -c "alembic upgrade head && python ./main.py"
+      sh -c "python ./main.py"
 volumes:
   postgres_data:
