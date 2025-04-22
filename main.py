@@ -7,4 +7,4 @@ app.include_router(table.router)
 app.include_router(reservation.router)
 
 if __name__ == '__main__':
-    uvicorn.run(app=app)
+    uvicorn.run(app=app, host='0.0.0.0', port=8000)
